@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Task } from '../store/taskSlice';
 
 const api = axios.create({
-  baseURL: process.env.API_URL,
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
 });
 
 export const getTasks = () => api.get('/todos');

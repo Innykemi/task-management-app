@@ -4,8 +4,8 @@ const nextConfig: NextConfig = {
   devIndicators: false,
   reactStrictMode: true,
   env: {
-    API_URL:
-      process.env.API_URL || "https://jsonplaceholder.typicode.com",
+    NEXT_PUBLIC_BASE_URL:
+      process.env.NEXT_PUBLIC_BASE_URL,
   },
 };
 

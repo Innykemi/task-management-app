@@ -7,7 +7,7 @@ import { useMemo } from 'react'
 import { Task } from '@/store/taskSlice'
 import { getTasks } from '@/services'
 
-const url = process.env.API_URL;
+const url = process.env.NEXT_PUBLIC_BASE_URL;
 
 function useTasks() {
   const fetcher = async (): Promise<Task[]> => {
