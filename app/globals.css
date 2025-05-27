@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --font-sans: "Inter", Helvetica, sans-serif;
+  --primary: #6C63FF;
+  --dark: #252525;
+  --light: rgb(247, 247, 247);
+  --stroke: #CDCDCD;
+  --error: #E50000;
+  --hover-shadow: 0px 0px 4px 0px rgba(108,99,255,1);
+  --shadow-light: 0px 0px 4px 0px rgba(247,247,247,0.5);
+}
+
+@theme {
+  --color-light: var(--light);
+  --color-dark: var(--dark);
+  --color-primary: var(--primary);
+  --color-stroke: var(--stroke);
+  --color-error: var(--error);
+  --font-sans: var(--font-inter);
+  --shadow-hover: var(--hover-shadow);
+  --shadow-light: var(--shadow-light);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+}
