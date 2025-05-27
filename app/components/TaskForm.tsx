@@ -14,6 +14,7 @@ export default function TaskForm({ initialData, onSuccess }: TaskFormProps) {
   const dispatch = useDispatch<AppDispatch>();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [completed, setCompleted] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export default function TaskForm({ initialData, onSuccess }: TaskFormProps) {
     try {
       if (initialData) {
         await dispatch(
-          updateTaskThunk({ ...initialData, title, description })
+          updateTaskThunk({ ...initialData, title, description, completed })
         ).unwrap();
       } else {
         await dispatch(
@@ -74,6 +75,19 @@ export default function TaskForm({ initialData, onSuccess }: TaskFormProps) {
         placeholder="Task description (optional)"
         className="input-base"
       />
+      {initialData && (
+        <select
+          aria-label="Status"
+          value={completed ? "completed" : "pending"}
+          onChange={(e) =>
+            setCompleted(e.target.value === "completed" ? true : false)
+          }
+          className="input-base"
+        >
+          <option value="pending">Pending</option>
+          <option value="completed">Completed</option>
+        </select>
+      )}
       <button
         type="submit"
         className="bg-primary text-white py-2 px-4 rounded hover:bg-indigo-700 disabled:opacity-50"
