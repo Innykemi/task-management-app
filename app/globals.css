@@ -5,6 +5,7 @@
 :root {
   --font-sans: "Inter", Helvetica, sans-serif;
   --primary: #6C63FF;
+  --primary-light: #C3C1E5;
   --dark: #252525;
   --light: rgb(247, 247, 247);
   --stroke: #CDCDCD;
@@ -17,6 +18,7 @@
   --color-light: var(--light);
   --color-dark: var(--dark);
   --color-primary: var(--primary);
+  --color-primary-light: var(--primary-light);
   --color-stroke: var(--stroke);
   --color-error: var(--error);
   --font-sans: var(--font-inter);

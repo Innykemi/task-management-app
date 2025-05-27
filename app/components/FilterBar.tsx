@@ -19,7 +19,7 @@ export default function FilterBar() {
           placeholder="Search..."
           value={search}
           onChange={(e) => dispatch(setSearch(e.target.value))}
-          className="w-full py-2 px-3 border-b border-primary dark:bg-dark dark:text-light focus:border-blue-500 focus:outline-none"
+          className="w-full py-2 px-3 border-b border-primary text-primary-light dark:bg-dark dark:text-light focus:border-blue-500 focus:outline-none"
           aria-label="Search tasks"
         />
         <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
