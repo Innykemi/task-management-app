@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Task Management Application
 
-## Getting Started
+This is a task management application built using Next.js, demonstrating expertise in React, Redux, SWR, Tailwind CSS, and Axios for CRUD operations. The application is designed to be production-ready, with a focus on clean code, performance, scalability, and advanced UI/UX features.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Task Management**: Create, read, update, and delete tasks.
+- **Responsive Design**: Built with Tailwind CSS for a modern and responsive UI.
+- **State Management**: Utilizes Redux for managing application state.
+- **Data Fetching**: Implements SWR for efficient data fetching and caching.
+- **Reusable Components**: Modular components for buttons, modals, task lists, and forms.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
+   ```
+   git clone https://github.com/Innykemi/task-management-app.git
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. Navigate to the project directory:
+   ```
+   cd task-management-app
+   ```
 
-## Learn More
+3. Install dependencies:
+   ```
+   npm install
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+4. Run the development server:
+   ```
+   npm run dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. Open your browser and go to `http://localhost:3000`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Usage
 
-## Deploy on Vercel
+- Navigate to the tasks dashboard to view, create, edit, and delete tasks.
+- Use the task form to add new tasks or edit existing ones.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Design Decisions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Next.js**: Chosen for its server-side rendering capabilities and ease of routing.
+- **Redux**: Used for global state management to handle tasks efficiently.
+- **SWR**: Implemented for data fetching to provide a smooth user experience with caching.
+- **Tailwind CSS**: Utilized for styling to ensure a responsive and modern design.
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for any enhancements or bug fixes.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
