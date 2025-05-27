@@ -1,18 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store";
-import { createTaskThunk } from "@/store/taskSlice";
+import { createTaskThunk, Task, updateTaskThunk } from "@/store/taskSlice";
 
-export default function TaskForm() {
+interface TaskFormProps {
+  initialData?: Task;
+  onSuccess?: () => void;
+}
+
+export default function TaskForm({ initialData, onSuccess }: TaskFormProps) {
   const dispatch = useDispatch<AppDispatch>();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    if (initialData) {
+      setTitle(initialData.title);
+      setDescription(initialData.description || "");
+    }
+  }, [initialData]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!title.trim() || title.length > 100) {
       alert("Title is required and must be under 100 characters");
       return;
@@ -20,11 +33,25 @@ export default function TaskForm() {
 
     setLoading(true);
     try {
-      await dispatch(createTaskThunk({ title, description })).unwrap();
+      if (initialData) {
+        await dispatch(
+          updateTaskThunk({ ...initialData, title, description })
+        ).unwrap();
+      } else {
+        await dispatch(
+          createTaskThunk({
+            title,
+            description,
+            createdAt: new Date().toISOString(),
+          })
+        ).unwrap();
+      }
+
       setTitle("");
       setDescription("");
-    } catch (err) {
-      alert("Failed to create task");
+      onSuccess?.();
+    } catch {
+      alert("Something went wrong.");
     } finally {
       setLoading(false);
     }
@@ -38,21 +65,27 @@ export default function TaskForm() {
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Task title"
         required
-        className="w-full p-2 border rounded dark:bg-gray-700"
+        className="input-base"
         maxLength={100}
       />
       <textarea
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         placeholder="Task description (optional)"
-        className="w-full p-2 border rounded dark:bg-gray-700"
+        className="input-base"
       />
       <button
         type="submit"
         className="bg-primary text-white py-2 px-4 rounded hover:bg-indigo-700 disabled:opacity-50"
         disabled={loading}
       >
-        {loading ? "Adding..." : "Add Task"}
+        {loading
+          ? initialData
+            ? "Updating..."
+            : "Adding..."
+          : initialData
+          ? "Update Task"
+          : "Add Task"}
       </button>
     </form>
   );

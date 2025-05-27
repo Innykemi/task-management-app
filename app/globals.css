@@ -9,8 +9,8 @@
   --light: rgb(247, 247, 247);
   --stroke: #CDCDCD;
   --error: #E50000;
-  --hover-shadow: 0px 0px 4px 0px rgba(108,99,255,1);
-  --shadow-light: 0px 0px 4px 0px rgba(247,247,247,0.5);
+  --primary-shadow: 0px 0px 4px 0px rgba(108,99,255,1);
+  --light-shadow: 0px 0px 4px 0px rgba(255,255,255,0.4);
 }
 
 @theme {
@@ -20,8 +20,19 @@
   --color-stroke: var(--stroke);
   --color-error: var(--error);
   --font-sans: var(--font-inter);
-  --shadow-hover: var(--hover-shadow);
-  --shadow-light: var(--shadow-light);
+  --shadow-primary: var(--primary-shadow);
+  --shadow-light: var(--light-shadow);
+  --animate-fade-in: fade-in 0.2s ease-out both;
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 }
 
 html {
@@ -30,4 +41,17 @@ html {
 
 body {
   font-family: var(--font-sans);
+}
+
+.animate-fade-in {
+  animation: var(--animate-fade-in);
+}
+
+.input-base {
+  @apply w-full p-2 border border-primary focus:[box-shadow:var(--shadow-primary)] 
+         rounded outline-none dark:bg-dark dark:border-light dark:focus:[box-shadow:var(--light-shadow)];
+}
+
+.primary-bg-shadow {
+  @apply bg-primary cursor-pointer hover:shadow-primary
 }

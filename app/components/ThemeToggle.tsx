@@ -19,10 +19,7 @@ export default function ThemeToggle() {
   };
 
   return (
-    <button
-      onClick={toggle}
-      className="p-2 rounded-[5px] bg-primary cursor-pointer hover:shadow-hover"
-    >
+    <button onClick={toggle} className="p-2 rounded-[5px] primary-bg-shadow">
       {theme ? icons.sunIcon() : icons.moonIcon()}
     </button>
   );

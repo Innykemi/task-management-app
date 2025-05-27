@@ -6,6 +6,8 @@ import { AppDispatch } from "@/store";
 import { useState } from "react";
 import { TaskStatusBadge } from "./common/TaskStatusBadge";
 import { icons } from "@/icons";
+import TaskForm from "./TaskForm";
+import Modal from "./common/Modal";
 
 interface Props {
   task: Task;
@@ -14,6 +16,8 @@ interface Props {
 export default function TaskCard({ task }: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const [loading, setLoading] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [editTask, setEditTask] = useState<Task | null>(null);
 
   const toggleStatus = async () => {
     setLoading(true);
@@ -40,15 +44,20 @@ export default function TaskCard({ task }: Props) {
     }
   };
 
+  const handleEditTask = (task: Task) => {
+    setOpenModal(true);
+    setEditTask(task);
+  };
+
   return (
     <section
       className={`relative group p-6 rounded-xl transition-transform shadow-md hover:scale-[1.02]
-        bg-light text-dark dark:bg-dark dark:text-light flex flex-col justify-between gap-2 dark:shadow-hover`}
+        bg-light text-dark dark:bg-dark dark:text-light flex flex-col justify-between gap-2 dark:shadow-light`}
     >
-      <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+      <div className="absolute top-3 right-3 flex gap-2 opacity-0 cursor-pointer group-hover:opacity-100 transition-opacity">
         <button
-          onClick={toggleStatus}
-          className="text-sm stroke-stroke hover:stroke-error disabled:opacity-50"
+          onClick={() => handleEditTask(task)}
+          className="text-sm stroke-stroke cursor-pointer hover:stroke-primary disabled:opacity-50"
           disabled={loading}
           aria-label="edit task"
         >
@@ -69,6 +78,11 @@ export default function TaskCard({ task }: Props) {
         <p className="text-sm text-gray-600 dark:text-gray-300">
           {task.description || "No description provided."}
         </p>
+        <p className="text-xs text-gray-600 dark:text-gray-300">
+          {task.createdAt
+            ? new Date(task.createdAt).toLocaleDateString()
+            : new Date().toLocaleDateString()}
+        </p>
       </div>
       <div className="flex items-center justify-between">
         <TaskStatusBadge completed={task.completed} />
@@ -85,6 +99,17 @@ export default function TaskCard({ task }: Props) {
           </button>
         </div>
       </div>
+      {openModal && (
+        <Modal open={openModal} onClose={() => setOpenModal(false)}>
+          <TaskForm
+            initialData={editTask!}
+            onSuccess={() => {
+              setOpenModal(false);
+              setEditTask(null);
+            }}
+          />
+        </Modal>
+      )}
     </section>
   );
 }

@@ -31,7 +31,7 @@ export default function FilterBar() {
         onChange={(e) =>
           dispatch(setFilter(e.target.value as "all" | "pending" | "completed"))
         }
-        className="p-2 border-none rounded bg-primary text-light uppercase shadow-hover outline-none"
+        className="p-2 border-none rounded bg-primary text-light uppercase shadow-primary outline-none"
         aria-label="Filter by status"
       >
         <option value="all">All</option>

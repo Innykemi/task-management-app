@@ -2,8 +2,8 @@ import Image from "next/image";
 import FilterBar from "./components/FilterBar";
 import ThemeToggle from "./components/ThemeToggle";
 import dynamic from "next/dynamic";
-// import { Skeleton } from "antd";
 import TaskSkeleton from "./components/common/TaskSkeleton";
+import AddTaskButton from "./components/common/AddTaskButton";
 
 const TaskList = dynamic(() => import("./components/TaskList"), {
   loading: () => <TaskSkeleton />,
@@ -12,7 +12,7 @@ const TaskList = dynamic(() => import("./components/TaskList"), {
 function Home() {
   return (
     <main
-      className="min-h-screen bg-light dark:bg-dark transition-colors duration-200 py-8 px-4 sm:px-6  motion-reduce:transition-none"
+      className="relative min-h-screen bg-light dark:bg-dark transition-colors duration-200 py-8 px-4 sm:px-6  motion-reduce:transition-none"
       role="main"
     >
       <section className="grid grid-cols-1 gap-8 max-w-4xl mx-auto">
@@ -33,12 +33,13 @@ function Home() {
             <FilterBar />
           </div>
 
-          <section className="">
+          <section>
             <div className="grid grid-cols-1 divide-y divide-gray-100 dark:divide-gray-700">
               <TaskList />
             </div>
           </section>
         </div>
+        <AddTaskButton />
       </section>
     </main>
   );
