@@ -18,7 +18,7 @@ export default function TaskList() {
     );
   }
   if (error) return <p>Failed to load tasks.</p>;
-  if (tasks?.length === 0)
+  if (!loading && tasks?.length === 0)
     return (
       <div className="flex justify-center h-full ">
         <Image

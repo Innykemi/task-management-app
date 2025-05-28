@@ -3,7 +3,14 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store";
-import { createTaskThunk, Task, updateTaskThunk } from "@/store/taskSlice";
+import {
+  createTaskThunk,
+  updateTaskThunk,
+  addTaskOptimistic,
+  removeTask,
+  updateTaskOptimistic,
+  Task,
+} from "@/store/taskSlice";
 
 interface TaskFormProps {
   initialData?: Task;
@@ -14,13 +21,14 @@ export default function TaskForm({ initialData, onSuccess }: TaskFormProps) {
   const dispatch = useDispatch<AppDispatch>();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [completed, setCompleted] = useState(false);
+  const [completed, setCompleted] = useState(initialData?.completed ?? false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (initialData) {
       setTitle(initialData.title);
       setDescription(initialData.description || "");
+      setCompleted(initialData.completed);
     }
   }, [initialData]);
 
@@ -35,23 +43,39 @@ export default function TaskForm({ initialData, onSuccess }: TaskFormProps) {
     setLoading(true);
     try {
       if (initialData) {
-        await dispatch(
-          updateTaskThunk({ ...initialData, title, description, completed })
-        ).unwrap();
+        const updatedTask = { ...initialData, title, description, completed };
+        dispatch(updateTaskOptimistic(updatedTask));
+        await dispatch(updateTaskThunk(updatedTask)).unwrap();
       } else {
+        const tempId = Math.floor(Math.random() * 10000);
+        const newTask = {
+          id: tempId,
+          title,
+          description,
+          completed: false,
+          createdAt: new Date().toISOString(),
+        };
+        dispatch(addTaskOptimistic(newTask));
         await dispatch(
           createTaskThunk({
+            id: tempId,
             title,
             description,
-            createdAt: new Date().toISOString(),
+            completed: false,
+            createdAt: newTask.createdAt,
           })
         ).unwrap();
       }
 
       setTitle("");
       setDescription("");
+      setCompleted(false);
       onSuccess?.();
     } catch {
+      if (!initialData) {
+        // Rollback optimistic add if create failed
+        dispatch(removeTask(Date.now()));
+      }
       alert("Something went wrong.");
     } finally {
       setLoading(false);
@@ -79,9 +103,7 @@ export default function TaskForm({ initialData, onSuccess }: TaskFormProps) {
         <select
           aria-label="Status"
           value={completed ? "completed" : "pending"}
-          onChange={(e) =>
-            setCompleted(e.target.value === "completed" ? true : false)
-          }
+          onChange={(e) => setCompleted(e.target.value === "completed")}
           className="input-base"
         >
           <option value="pending">Pending</option>

@@ -6,7 +6,7 @@ const api = axios.create({
 });
 
 export const getTasks = () => api.get('/todos');
-export const createTask = (task: Partial<Task>) => api.post('/todos', task);
+export const createTask = (task: Task) => api.post('/todos', task);
 export const updateTask = (id: number, updates: Partial<Task>) => api.patch(`/todos/${id}`, updates);
 export const deleteTask = (id: number) => api.delete(`/todos/${id}`);
 

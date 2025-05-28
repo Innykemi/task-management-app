@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import TaskSkeleton from "./components/common/TaskSkeleton";
 import AddTaskButton from "./components/common/AddTaskButton";
 
-const TaskList = dynamic(() => import("./components/TaskList"), {
+const TaskListClient = dynamic(() => import("./components/TaskListClient"), {
   loading: () => <TaskSkeleton />,
 });
 
@@ -35,7 +35,7 @@ function Home() {
 
           <section>
             <div className="grid grid-cols-1 divide-y divide-gray-100 dark:divide-gray-700">
-              <TaskList />
+              <TaskListClient />
             </div>
           </section>
         </div>
