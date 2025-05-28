@@ -8,8 +8,8 @@ const createJestConfig = nextJest({
 // Add any custom config to be passed to Jest
 const config: Config = {
   coverageProvider: 'v8',
-  testEnvironment: 'jsdom',
-  // testEnvironment: "jest-environment-jsdom",
+  // testEnvironment: 'jsdom',
+  testEnvironment: "jest-fixed-jsdom",
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/app/$1",

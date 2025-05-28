@@ -1,2 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-require("@testing-library/jest-dom");
+// import 'cross-fetch/polyfill';
+import '@testing-library/jest-dom';
+// import { TextEncoder } from 'util';
+
+// if (typeof global.TextEncoder === "undefined") {
+//   global.TextEncoder = TextEncoder;
+// }
